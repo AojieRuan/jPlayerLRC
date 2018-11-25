@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>音乐播放器</title>
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.4">
+<meta name="MobileOptimized" content="240">
+
+<link href="css/blue.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.jplayer.js"></script>
+<script type="text/javascript" src="js/lrc.js"></script>
+
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+	outline:none;
+}
+ul, ol, dl {
+	list-style: none;
+}
+
+.music_box{margin:50px auto;width:422px;}
+.content {width: 402px;height:200px;overflow:hidden;padding:10px;background:#ccc;}
+#lrc_list{margin:10px auto;background:#ccc;}
+#lrc_list li{font:normal 14px/2.1 'microsoft yahei';text-align:center;}
+#lrc_list li.hover {color:red;font-weight:bold;}
+</style>
+
+<script>
+//<![CDATA[
+$(document).ready(function(){
+	$("#jquery_jplayer_1").jPlayer({
+		ready: function (event) {
+			$(this).jPlayer("setMedia", {
+				mp3:"music.mp3" //mp3的播放地址
+			});
+		},
+		timeupdate: function(event) {
+			if(event.jPlayer.status.currentTime==0){
+				time = "";
+			}else {
+				time = event.jPlayer.status.currentTime;
+			}
+		},
+		play: function(event) {
+			//点击开始方法调用lrc。start歌词方法 返回时间time
+			$.lrc.start($('#lrc_content').val(), function() {
+				return time;
+			});
+		},
+		ended:function(event){
+			$("#lrc_list").removeAttr("style").html("<li>歌曲播放完毕！</li>");
+		},
+		swfPath: "/js",  		//存放jplayer.swf的决定路径
+		solution:"html, flash", //支持的页面
+		supplied: "mp3",		//支持的音频的格式
+		wmode: "window"
+	});
+});
+//]]>
+</script>
+</head>
+<body>
+<textarea id="lrc_content" name="textfield" cols="70" rows="10" style="display:none;"> 
+[00:00.00]专辑：盖世英雄
+[00:03.00]王力宏 - 爱因为在心中(Love On My Mind)
+[00:06.00]作词：紫焱龙、狗狗、修宝、Shane
+[00:09.00]作曲：Shane 编曲：Shane
+[00:12.00]LRC：Nekoily
+[00:16.00]--------
+[00:30.54]当我睁开双眼每一天(妙苗)
+[00:34.21]都会记得大家的笑脸(修罗)
+[00:37.49]明白心中勇敢又多了一点(妙苗 修罗)
+[00:42.33][00:55.95][01:24.02][01:54.76][02:07.79][02:21.67][02:49.63][03:20.19]
+[00:44.36]曾经哭泣也会看不见(可爱的小南瓜)
+[00:47.86]未来总会有别的喜悦(忧郁之蓝)
+[00:51.14]就让时间翻开崭新的一页(可爱的小南瓜 忧郁之蓝)
+[00:57.62]你的音符你的脸 (NicholasLee)
+[01:01.44]有种无声的语言(NicholasLee)
+[01:04.92]教我不退缩要坚持著信念(NicholasLee)
+[01:11.80]用音符画一个圈(音乐进化论)
+[01:15.20]经过都会被纪念(音乐进化论)
+[01:18.61]我想爱永远会留在你心间(音乐进化论)
+[01:25.14][02:51.19][03:21.09]每个人 都拥有一个梦(合唱)
+[01:30.70][02:56.38][03:27.28]即使彼此不相同(合唱)
+[01:33.94][02:59.76][03:30.44]能够与你分享(合唱)
+[01:35.76][03:01.55][03:32.28]无论失败成功都会感动(合唱)
+[01:39.89][03:05.51][03:36.33][04:03.99]爱 因为在心中(合唱)
+[01:44.58][03:10.34][03:41.18][04:08.71]平凡而不平庸(合唱)
+[01:47.63][03:13.34][03:44.30][04:11.77]世界就像迷宫(合唱)
+[01:49.39][03:15.02][03:45.96][04:13.39]却又让我们此刻相逢Our Home(合唱)
+[01:56.42]伤心时你会给我笑脸(ssf)
+[01:59.85]让我感受友爱的原点(饭饭)
+[02:03.15]快乐地过有风有雨的岁月(ssf 饭饭)
+[02:10.14]失望和伤心在所难免(冰兰)
+[02:13.57]都会经历漫长的严寒(Irini)
+[02:16.89]让这一切在我们心中沉淀(冰兰Irini)
+[02:23.79]用旋律写张信签(OurHome小5)
+[02:27.19]放入你的心裏面(OurHome小5)
+[02:30.60]手牵手记录我们爱的和弦 (BEAT)
+[02:37.38]用音符画一个圈(死神的乐章)
+[02:40.92]经过都会被纪念(死神的乐章)
+[02:44.43]我想爱永远会留在你心间(Shane)
+[03:51.44]LaLaLaLaLaLa~
+[04:18.95]----
+</textarea>
+<div class="music_box">
+<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+<div id="jp_container_1" class="jp-audio">
+  <div class="jp-type-single">
+    <div class="jp-gui jp-interface">
+      <ul class="jp-controls">
+        <li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
+        <li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
+        <li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
+        <li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a></li>
+        <li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a></li>
+        <li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max volume</a></li>
+      </ul>
+      <div class="jp-progress">
+        <div class="jp-seek-bar">
+          <div class="jp-play-bar"></div>
+        </div>
+      </div>
+      <div class="jp-volume-bar">
+        <div class="jp-volume-bar-value"></div>
+      </div>
+      <div class="jp-time-holder">
+        <div class="jp-current-time"></div>
+        <div class="jp-duration"></div>
+        <ul class="jp-toggles">
+          <li><a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat">repeat</a></li>
+          <li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off">repeat off</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="jp-title">
+      <ul>
+        <li>Music Player</li>
+      </ul>
+    </div>
+    <div class="jp-no-solution"> <span>Update Required</span> To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>. </div>
+  </div>
+</div>
+<div class="content">
+    <ul id="lrc_list">
+    	<li>点击开始播放……</li>
+    </ul>
+</div>
+</div>
+<div style="text-align:center;">
+<p>本代码由Nekoily编写，使用时请注明使用了Nekoily的代码，尊重他人劳动</p>
+</div>
+</body>
+</html>
